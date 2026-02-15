@@ -89,25 +89,10 @@ $config = [
                 "GET api/todo/tasks" => "todo/task/tasks-list",
                 "OPTIONS api/todo/tasks" => "todo/task/options",
 
-
-                // "GET api/todo/task-test" => "todo/task/task-test",
-                // "OPTIONS api/todo/task-test" => "todo/task/options",
-
                 "GET api" => "site/info",
                 "GET /" => "site/info",
                 "GET api/todo" => "site/info",
                 "GET api/e-comerce" => "site/info",
-
-                // [
-                //     'class' => 'yii\rest\UrlRule',
-                //     'controller' => 'todo/user',
-                //     'prefix' => "api/",
-                //     'except' => ['delete',  'update'],
-                //     'extraPatterns' => [
-                //         'POST logout' => 'logout',
-                //     ],
-                //     // "pluralize" => false,
-                // ],
             ],
         ],
 
@@ -133,7 +118,7 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['5.144.96.34'],
+        'allowedIPs' => [''],
     ];
 }
 

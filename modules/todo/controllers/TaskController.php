@@ -28,14 +28,11 @@ class TaskController extends ActiveController
         $behaviors = parent::behaviors();
 
         // remove authentication filter
-
         unset($behaviors['authenticator']);
-
         // add CORS filter
         $behaviors['corsFilter'] = [
             'class' => \yii\filters\Cors::class,
             'cors' => [
-                // 'Origin' => ["*"],
                 'Origin' => [isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : 'http://' . $_SERVER['REMOTE_ADDR']],
                 'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
                 'Access-Control-Request-Headers' => ['*'],
@@ -46,7 +43,6 @@ class TaskController extends ActiveController
         $auth = [
             'class' => HttpBearerAuth::class,
             'except' => ['options'],
-            // 'only' => ['*'],
         ];
         $behaviors['authenticator'] = $auth;
         return $behaviors;
@@ -62,13 +58,6 @@ class TaskController extends ActiveController
 
         return $actions;
     }
-
-    // public function actionOptions()
-    // {
-    //     // file_put_contents("test.log", 'ok');
-    //     return '';
-    // }
-
 
 
     public function actionCreateTask()
@@ -146,12 +135,6 @@ class TaskController extends ActiveController
         if ($this->request->isPatch && $id && $this->request->getRawBody()) {
             if ($model = TodoList::findOne($id)) {
                 if ($model->user_id === Yii::$app->user->id) {
-
-                    // return $this->asJson([
-                    //     $this->request->getRawBody(),
-                    //     $id,
-                    //     Yii::$app->user->id
-                    // ]);
                     $model->data = json_decode($this->request->getRawBody());
                     if ($model->save()) {
                         return $this->asJson([

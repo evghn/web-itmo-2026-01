@@ -7,6 +7,22 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 
-$config = require __DIR__ . '/../config/web.php';
+// var_dump(
+//     str_contains($_SERVER["REQUEST_URI"], "/api"),
+//     $_SERVER["REQUEST_URI"]
+// );
+// die;
+
+switch (true) {
+    case str_contains($_SERVER["REQUEST_URI"], "/api"):
+        if (str_contains($_SERVER["REQUEST_URI"], "/todo")) {
+            $config = require __DIR__ . '/../config/web_todo_api.php';
+        } else {
+            $config = require __DIR__ . '/../config/web_todo_api.php';
+        }
+        break;
+    default:
+        $config = require __DIR__ . '/../config/web.php';
+}
 
 (new yii\web\Application($config))->run();
